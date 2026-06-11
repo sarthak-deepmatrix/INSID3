@@ -279,9 +279,12 @@ class INSID3(nn.Module):
             forward_mask = sim_fwd > float(torch.quantile(sim_fwd, 0.9))
 
         # Backward: majority-vote over nearest neighbours in each reference
-        k = len(sim_maps)
         votes = torch.zeros((h, w), dtype=torch.int32, device=sim_maps[0].device)
+        k = 0  # Number of references with a non-empty mask (i.e. that can cast a vote)
         for m, sim_m in enumerate(sim_maps):
+            if ref_masks[m].max() == 0:
+                continue  # Empty mask (negative example): cannot vote, excluded from threshold
+            k += 1
             sim0 = sim_m[0]  # (Hs, Ws, h, w)
             Hs, Ws = sim0.shape[:2]
             sim_t_to_r = sim0.permute(2, 3, 0, 1)  # (h, w, Hs, Ws)

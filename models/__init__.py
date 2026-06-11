@@ -13,7 +13,7 @@ _HUB_NAMES = {
 _WEIGHTS = {
     "small": "pretrain/dinov3_vits16_pretrain_lvd1689m-08c60483.pth",
     "base": "pretrain/dinov3_vitb16_pretrain_lvd1689m-73cec8be.pth",
-    "large": "pretrain/dinov3_vitl16_pretrain_lvd1689m-8aa4cbdd.pth",
+    "large": "dinov3-models/dinov3_vitl16_pretrain_sat493m-eadcf0ff.pth",
 }
 
 
